@@ -1,0 +1,39 @@
+{
+    "name": "calendar-of-events",
+    "version": "1.0.0",
+    "description": "ITMO's curs project (Calendar of Events)",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js",
+        "build:scripts": "webpack",
+        "postinstall": "npm run build:scripts"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Sophi26/calendar-of-events.git"
+    },
+    "keywords": [
+        "typescript"
+    ],
+    "author": "Sofia Afanaseva",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Sophi26/calendar-of-events/issues"
+    },
+    "homepage": "https://github.com/Sophi26/calendar-of-events#readme",
+    "devDependencies": {
+        "@types/body-parser": "^1.16.8",
+        "@types/express": "^4.11.1",
+        "@types/jquery": "^3.3.0",
+        "@types/node": "^9.4.0",
+        "ts-loader": "^3.5.0",
+        "typescript": "^2.7.1",
+        "webpack": "^3.11.0"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.2",
+        "express": "^4.16.2",
+        "jquery": "^3.3.1"
+    }
+}
