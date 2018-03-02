@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Calendar of events</title>
+    <link rel="stylesheet" type="text/css" href="styles/index.css" />
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>Calendar of events</h1>
+    </header>
+    <main>
+
+        <div class="week-flex-container">
+            <div id="week-flex-block1">
+                <p>Пн</p>
+            </div>
+            <div id="week-flex-block2">
+                <p>Вт</p>
+            </div>
+            <div id="week-flex-block3">
+                <p>Ср</p>
+            </div>
+            <div id="week-flex-block4">
+                <p>Чт</p>
+            </div>
+            <div id="week-flex-block5">
+                <p>Пт</p>
+            </div>
+            <div id="week-flex-block6">
+                <p>Сб</p>
+            </div>
+            <div id="week-flex-block0">
+                <p>Вс</p>
+            </div>
+        </div>
+
+        <div class="clock">
+            <svg xmlns="http://www.w3.org/2000/svg" viewbox="-148 -28 500 500">
+                  <g>
+                      
+                    <circle id="circle"/>
+                    
+                    <line id="hour0"/>
+                    <line id="hour1"/>
+                    <line id="hour2"/>
+                    <line id="hour3"/>
+                    <line id="hour4"/>
+                    <line id="hour5"/>
+                    <line id="hour6"/>
+                    <line id="hour7"/>
+                    <line id="hour8"/>
+                    <line id="hour9"/>
+                    <line id="hour10"/>
+                    <line id="hour11"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-270" id="sector0"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-277.5" id="sector1"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-285" id="sector2"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-292.5" id="sector3"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-300" id="sector4"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-307.5" id="sector5"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-315" id="sector6"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-322.5" id="sector7"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-330" id="sector8"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-337.5" id="sector9"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-345" id="sector10"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-352.5" id="sector11"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="0" id="sector12"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-7.5" id="sector13"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-15" id="sector14"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-22.5" id="sector15"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-30" id="sector16"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-37.5" id="sector17"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-45" id="sector18"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-52.5" id="sector19"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-60" id="sector20"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-67.5" id="sector21"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-75" id="sector22"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-82.5" id="sector23"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-90" id="sector24"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-97.5" id="sector25"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-105" id="sector26"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-112.5" id="sector27"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-120" id="sector28"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-127.5" id="sector29"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-135" id="sector30"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-142.5" id="sector31"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-150" id="sector32"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-157.5" id="sector33"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-165" id="sector34"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-172.5" id="sector35"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-180" id="sector36"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-187.5" id="sector37"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-195" id="sector38"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-202.5" id="sector39"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-210" id="sector40"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-217.5" id="sector41"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-225" id="sector42"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-232.5" id="sector43"/>
+
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-240" id="sector44"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-247.5" id="sector45"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-255" id="sector46"/>
+                    <circle cx="100" cy="100" r="57.5" fill="none" stroke="none" stroke-opacity="0" stroke-width="65"
+                    stroke-dasharray="7.5 352.5" stroke-dashoffset="-262.5" id="sector47"/>
+
+                    <defs>
+                        <path id="for-text0"/>
+                        <path id="for-text1"/>
+                        <path id="for-text2"/>
+                        <path id="for-text3"/>
+
+                        <path id="for-text4"/>
+                        <path id="for-text5"/>
+                        <path id="for-text6"/>
+                        <path id="for-text7"/>
+
+                        <path id="for-text8"/>
+                        <path id="for-text9"/>
+                        <path id="for-text10"/>
+                        <path id="for-text11"/>
+
+                        <path id="for-text12"/>
+                        <path id="for-text13"/>
+                        <path id="for-text14"/>
+                        <path id="for-text15"/>
+
+                        <path id="for-text16"/>
+                        <path id="for-text17"/>
+                        <path id="for-text18"/>
+                        <path id="for-text19"/>
+
+                        <path id="for-text20"/>
+                        <path id="for-text21"/>
+                        <path id="for-text22"/>
+                        <path id="for-text23"/>
+
+                        <path id="for-text20"/>
+                        <path id="for-text21"/>
+                        <path id="for-text22"/>
+                        <path id="for-text23"/>
+
+                        <path id="for-text24"/>
+                        <path id="for-text25"/>
+                        <path id="for-text26"/>
+                        <path id="for-text27"/>
+
+                        <path id="for-text28"/>
+                        <path id="for-text29"/>
+                        <path id="for-text30"/>
+                        <path id="for-text31"/>
+
+                        <path id="for-text32"/>
+                        <path id="for-text33"/>
+                        <path id="for-text34"/>
+                        <path id="for-text35"/>
+
+                        <path id="for-text36"/>
+                        <path id="for-text37"/>
+                        <path id="for-text38"/>
+                        <path id="for-text39"/>
+
+                        <path id="for-text40"/>
+                        <path id="for-text41"/>
+                        <path id="for-text42"/>
+                        <path id="for-text43"/>
+
+                        <path id="for-text44"/>
+                        <path id="for-text45"/>
+                        <path id="for-text46"/>
+                        <path id="for-text47"/>
+                    </defs>
+
+                    <use xlink:href="#for-text0"/>
+                    <text x="38" y="38">
+                        <textPath id="text0" xlink:href="#for-text0"></textPath>
+                    </text>
+                    <use xlink:href="#for-text1"/>
+                    <text x="38" y="38">
+                        <textPath id="text1" xlink:href="#for-text1"></textPath>
+                    </text>
+                    <use xlink:href="#for-text2"/>
+                    <text x="38" y="38">
+                        <textPath id="text2" xlink:href="#for-text2"></textPath>
+                    </text>
+                    <use xlink:href="#for-text3"/>
+                    <text x="38" y="38">
+                        <textPath id="text3" xlink:href="#for-text3"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text4"/>
+                    <text x="38" y="38">
+                        <textPath id="text4" xlink:href="#for-text4"></textPath>
+                    </text>
+                    <use xlink:href="#for-text5"/>
+                    <text x="38" y="38">
+                        <textPath id="text5" xlink:href="#for-text5"></textPath>
+                    </text>
+                    <use xlink:href="#for-text6"/>
+                    <text x="38" y="38">
+                        <textPath id="text6" xlink:href="#for-text6"></textPath>
+                    </text>
+                    <use xlink:href="#for-text7"/>
+                    <text x="38" y="38">
+                        <textPath id="text7" xlink:href="#for-text7"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text8"/>
+                    <text x="38" y="38">
+                        <textPath id="text8" xlink:href="#for-text8"></textPath>
+                    </text>
+                    <use xlink:href="#for-text9"/>
+                    <text x="38" y="38">
+                        <textPath id="text9" xlink:href="#for-text9"></textPath>
+                    </text>
+                    <use xlink:href="#for-text10"/>
+                    <text x="38" y="38">
+                        <textPath id="text10" xlink:href="#for-text10"></textPath>
+                    </text>
+                    <use xlink:href="#for-text11"/>
+                    <text x="38" y="38">
+                        <textPath id="text11" xlink:href="#for-text11"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text12"/>
+                    <text x="38" y="38">
+                        <textPath id="text12" xlink:href="#for-text12"></textPath>
+                    </text>
+                    <use xlink:href="#for-text13"/>
+                    <text x="38" y="38">
+                        <textPath id="text13" xlink:href="#for-text13"></textPath>
+                    </text>
+                    <use xlink:href="#for-text14"/>
+                    <text x="38" y="38">
+                        <textPath id="text14" xlink:href="#for-text14"></textPath>
+                    </text>
+                    <use xlink:href="#for-text15"/>
+                    <text x="38" y="38">
+                        <textPath id="text15" xlink:href="#for-text15"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text16"/>
+                    <text x="38" y="38">
+                        <textPath id="text16" xlink:href="#for-text16"></textPath>
+                    </text>
+                    <use xlink:href="#for-text17"/>
+                    <text x="38" y="38">
+                        <textPath id="text17" xlink:href="#for-text17"></textPath>
+                    </text>
+                    <use xlink:href="#for-text18"/>
+                    <text x="38" y="38">
+                        <textPath id="text18" xlink:href="#for-text18"></textPath>
+                    </text>
+                    <use xlink:href="#for-text19"/>
+                    <text x="38" y="38">
+                        <textPath id="text19" xlink:href="#for-text19"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text20"/>
+                    <text x="38" y="38">
+                        <textPath id="text20" xlink:href="#for-text20"></textPath>
+                    </text>
+                    <use xlink:href="#for-text21"/>
+                    <text x="38" y="38">
+                        <textPath id="text21" xlink:href="#for-text21"></textPath>
+                    </text>
+                    <use xlink:href="#for-text22"/>
+                    <text x="38" y="38">
+                        <textPath id="text22" xlink:href="#for-text22"></textPath>
+                    </text>
+                    <use xlink:href="#for-text23"/>
+                    <text x="38" y="38">
+                        <textPath id="text23" xlink:href="#for-text23"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text24"/>
+                    <text x="30" y="30">
+                        <textPath id="text24" xlink:href="#for-text24"></textPath>
+                    </text>
+                    <use xlink:href="#for-text25"/>
+                    <text x="30" y="30">
+                        <textPath id="text25" xlink:href="#for-text25"></textPath>
+                    </text>
+                    <use xlink:href="#for-text26"/>
+                    <text x="30" y="30">
+                        <textPath id="text26" xlink:href="#for-text26"></textPath>
+                    </text>
+                    <use xlink:href="#for-text27"/>
+                    <text x="30" y="30">
+                        <textPath id="text27" xlink:href="#for-text27"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text28"/>
+                    <text x="30" y="30">
+                        <textPath id="text28" xlink:href="#for-text28"></textPath>
+                    </text>
+                    <use xlink:href="#for-text29"/>
+                    <text x="30" y="30">
+                        <textPath id="text29" xlink:href="#for-text29"></textPath>
+                    </text>
+                    <use xlink:href="#for-text30"/>
+                    <text x="30" y="30">
+                        <textPath id="text30" xlink:href="#for-text30"></textPath>
+                    </text>
+                    <use xlink:href="#for-text31"/>
+                    <text x="30" y="30">
+                        <textPath id="text31" xlink:href="#for-text31"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text32"/>
+                    <text x="30" y="30">
+                        <textPath id="text32" xlink:href="#for-text32"></textPath>
+                    </text>
+                    <use xlink:href="#for-text33"/>
+                    <text x="30" y="30">
+                        <textPath id="text33" xlink:href="#for-text33"></textPath>
+                    </text>
+                    <use xlink:href="#for-text34"/>
+                    <text x="30" y="30">
+                        <textPath id="text34" xlink:href="#for-text34"></textPath>
+                    </text>
+                    <use xlink:href="#for-text35"/>
+                    <text x="30" y="30">
+                        <textPath id="text35" xlink:href="#for-text35"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text36"/>
+                    <text x="30" y="30">
+                        <textPath id="text36" xlink:href="#for-text36"></textPath>
+                    </text>
+                    <use xlink:href="#for-text37"/>
+                    <text x="30" y="30">
+                        <textPath id="text37" xlink:href="#for-text37"></textPath>
+                    </text>
+                    <use xlink:href="#for-text38"/>
+                    <text x="30" y="30">
+                        <textPath id="text38" xlink:href="#for-text38"></textPath>
+                    </text>
+                    <use xlink:href="#for-text39"/>
+                    <text x="30" y="30">
+                        <textPath id="text39" xlink:href="#for-text39"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text40"/>
+                    <text x="30" y="30">
+                        <textPath id="text40" xlink:href="#for-text40"></textPath>
+                    </text>
+                    <use xlink:href="#for-text41"/>
+                    <text x="30" y="30">
+                        <textPath id="text41" xlink:href="#for-text41"></textPath>
+                    </text>
+                    <use xlink:href="#for-text42"/>
+                    <text x="30" y="30">
+                        <textPath id="text42" xlink:href="#for-text42"></textPath>
+                    </text>
+                    <use xlink:href="#for-text43"/>
+                    <text x="30" y="30">
+                        <textPath id="text43" xlink:href="#for-text43"></textPath>
+                    </text>
+
+                    <use xlink:href="#for-text44"/>
+                    <text x="30" y="30">
+                        <textPath id="text44" xlink:href="#for-text44"></textPath>
+                    </text>
+                    <use xlink:href="#for-text45"/>
+                    <text x="30" y="30">
+                        <textPath id="text45" xlink:href="#for-text45"></textPath>
+                    </text>
+                    <use xlink:href="#for-text46"/>
+                    <text x="30" y="30">
+                        <textPath id="text46" xlink:href="#for-text46"></textPath>
+                    </text>
+                    <use xlink:href="#for-text47"/>
+                    <text x="30" y="30">
+                        <textPath id="text47" xlink:href="#for-text47"></textPath>
+                    </text>
+
+                    <text x="94" y="21" id="h_0">12</text>
+                    <text x="139" y="33" id="h_1">1</text>
+                    <text x="170" y="64" id="h_2">2</text>
+                    <text x="181" y="104" id="h_3">3</text>
+                    <text x="169" y="145" id="h_4">4</text>
+                    <text x="139" y="175" id="h_5">5</text>
+                    <text x="97" y="187" id="h_6">6</text>
+                    <text x="55" y="175" id="h_7">7</text>
+                    <text x="25" y="145" id="h_8">8</text>
+                    <text x="12" y="104" id="h_9">9</text>
+                    <text x="22" y="64" id="h_10">10</text>
+                    <text x="54" y="33" id="h_11">11</text>
+                  </g>
+                  <g>
+                    <line id="hourhand"/>
+                    <line id="minutehand"/>
+                    <line id="secondhand"/>
+                    <circle id="inner_circle"/>
+                    <text x="86.5" y="104" id="time"></text>
+                  </g>
+                </svg>
+        </div>
+
+        <div class="button-flex-container">
+            <div id="button-flex-block1">
+                <button id="refresh">
+                    <svg style="width:24px;height:24px" viewBox=".5 -1.5 24 24">
+                        <path fill="rgba(124, 26, 145, .9)" d="M11,7V12.11L15.71,14.9L16.5,13.62L12.5,11.25V7M12.5,2C8.97,2 5.91,3.92 4.27,6.77L2,4.5V11H8.5L5.75,8.25C6.96,5.73 9.5,4 12.5,4A7.5,7.5 0 0,1 20,11.5A7.5,7.5 0 0,1 12.5,19C9.23,19 6.47,16.91 5.44,14H3.34C4.44,18.03 8.11,21 12.5,21C17.74,21 22,16.75 22,11.5A9.5,9.5 0 0,0 12.5,2Z" />
+                    </svg>
+                </button>
+            </div>
+            <div id="button-flex-block2">
+                <button id="calendar">
+                    <svg style="width:27px;height:27px" viewBox=".5 -1.5 24 24">
+                        <path fill="rgba(124, 26, 145, .9)" d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3H18V1M17,12H12V17H17V12Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="date-flex-container">
+            <div id="date-flex-block1">
+                <button id="prev">
+                    <svg style="width:30px;height:30px" viewBox="3 -1 24 24">
+                        <path fill="rgba(124, 26, 145, .9)" d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+                    </svg>
+                </button>
+            </div>
+            <div id="date-flex-block2">
+                <p id="date"></p>
+            </div>
+            <div id="date-flex-block3">
+                <button id="next">
+                    <svg style="width:30px;height:30px" viewBox="1 -1 24 24">
+                        <path fill="rgba(124, 26, 145, .9)" d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <button id="addEvent">+</button>
+
+        <div id="list-event">
+            <ul id="cur-events"></ul>
+        </div>
+
+        <div id="modal-shadow"></div>
+        <div id="modal-window">
+            <div id="close">X</div>
+            <form name="addevent" action="http://127.0.0.1:8081/api/events" method="post">
+                <fieldset>
+                    <legend>Добавить новое событие</legend>
+                    <ul class="fields">
+                        <li class="text">
+                            <label for="f-addevent-name">Название</label>
+                            <input type="text" name="name" id="f-addevent-name" />
+                        </li>
+                        <li class="startdate">
+                            <label for="f-addevent-start">Начало</label>
+                            <input type="datetime-local" name="start" id="f-addevent-start" />
+                        </li>
+                        <li class="enddate">
+                            <label for="f-addevent-end">Конец</label>
+                            <input type="datetime-local" name="end" id="f-addevent-end" />
+                        </li>
+                    </ul>
+                    <input id="send-form" type="submit" value="Добавить" />
+                </fieldset>
+            </form>
+        </div>
+
+        <div id="modal-shadow1"></div>
+        <div id="modal-window1">
+            <div id="close1">X</div>
+            <div id="calendar-table">
+                <table class="calendar" cellspacing="0" cellpadding="0" id="days"></table>
+            </div>
+        </div>
+
+        <script src="js/index.js"></script>
+
+    </main>
+
+</body>
+
+</html>
