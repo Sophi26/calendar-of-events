@@ -5,13 +5,7 @@
 
 import { EventEmitter } from 'events';
 
-import setSunday from './setSunday';
-import setMonday from './setMonday';
-import setTuesday from './setTuesday';
-import setWednasday from './setWednesday';
-import setThursday from './setThursday';
-import setFriday from './setFriday';
-import setSutarday from './setSutarday';
+import setWeekday from './setWeekday';
 
 function main(arr_emitter: EventEmitter[], eventName: string): void {
 
@@ -20,7 +14,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!sunday_click) return;
 
     sunday_click.addEventListener('click', () => {
-        setSunday(arr_emitter, eventName);
+        setWeekday(0, arr_emitter, eventName);
     });
 
     const monday_click = document.getElementById('week-flex-block1');
@@ -28,7 +22,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!monday_click) return;
 
     monday_click.addEventListener('click', () => {
-        setMonday(arr_emitter, eventName);
+        setWeekday(1, arr_emitter, eventName);
     });
 
     const tuesday_click = document.getElementById('week-flex-block2');
@@ -36,7 +30,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!tuesday_click) return;
 
     tuesday_click.addEventListener('click', () => {
-        setTuesday(arr_emitter, eventName);
+        setWeekday(2, arr_emitter, eventName);
     });
 
     const wednesday_click = document.getElementById('week-flex-block3');
@@ -44,7 +38,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!wednesday_click) return;
 
     wednesday_click.addEventListener('click', () => {
-        setWednasday(arr_emitter, eventName);
+        setWeekday(3, arr_emitter, eventName);
     });
 
     const thursday_click = document.getElementById('week-flex-block4');
@@ -52,7 +46,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!thursday_click) return;
 
     thursday_click.addEventListener('click', () => {
-        setThursday(arr_emitter, eventName);
+        setWeekday(4, arr_emitter, eventName);
     });
 
     const friday_click = document.getElementById('week-flex-block5');
@@ -60,7 +54,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!friday_click) return;
 
     friday_click.addEventListener('click', () => {
-        setFriday(arr_emitter, eventName);
+        setWeekday(5, arr_emitter, eventName);
     });
 
     const sutarday_click = document.getElementById('week-flex-block6');
@@ -68,7 +62,7 @@ function main(arr_emitter: EventEmitter[], eventName: string): void {
     if(!sutarday_click) return;
 
     sutarday_click.addEventListener('click', () => {
-        setSutarday(arr_emitter, eventName);
+        setWeekday(6, arr_emitter, eventName);
     });
 }
 

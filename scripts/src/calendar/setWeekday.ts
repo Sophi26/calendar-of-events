@@ -1,44 +1,46 @@
 /**
- * Выбор дня недели: Пятница
+ * Выбор дня недели
  */
-;
 
 import { EventEmitter } from 'events';
 
 import getScreenDate from './getScreenDate';
-import getNextDay from './getNextDay';
 import getPrevDay from './getPrevDay';
+import getNextDay from './getNextDay';
 import setScreenDate from './setScreenDate';
 import initOtherDayEvents from './initOtherDayEvents';
 import initEvents from './initEvents';
 import setColorWeekday from './setColorWeekday';
 import clearAll from './clearAll';
 
-function main(arr_emitter: EventEmitter[], eventName: string): void {
+function main(select_weekday: number, arr_emitter: EventEmitter[], eventName: string): void {
 
-    setColorWeekday(5, 'rgba(39, 216, 156, .6)');
+    setColorWeekday(select_weekday, 'rgba(39, 216, 156, .6)');
 
     const screen_date = getScreenDate();
 
-    const screen_weekday = screen_date.getDay();
+    let screen_weekday = screen_date.getDay();
     setColorWeekday(screen_weekday, 'snow');
 
-    let inc: number;
+    if(select_weekday == 0)
+        select_weekday = 7;
+    if(screen_weekday == 0)
+        screen_weekday = 7;
+
     let new_date = screen_date;
-    if (screen_date.getDay() < 5 && screen_date.getDay() != 0) {
-        inc = 5 - screen_date.getDay();
-        for (let i = 0; i < inc; ++i) {
-            new_date = getNextDay(new_date);
-        }
-    } else {
-        if (screen_date.getDay() == 0) {
-            inc = 2;
-        } else {
-            inc = screen_date.getDay() - 5;
-        }
-        
+    if(select_weekday < screen_weekday) {
+
+        const inc = screen_weekday - select_weekday;
+
         for (let i = 0; i < inc; i++) {
             new_date = getPrevDay(new_date);
+        }
+    } else if(select_weekday > screen_weekday) {
+        
+        const inc = select_weekday - screen_weekday;
+
+        for (let i = 0; i < inc; i++) {
+            new_date = getNextDay(new_date);
         }
     }
 
