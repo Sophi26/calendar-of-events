@@ -6,8 +6,6 @@
  * @param end_hour - время конца события
  * @param end_min - время конца события
  */
-;
-
 function main(name: string, start_hour: number, start_min: number, end_hour: number, end_min: number): HTMLLIElement {
 
     let str_start_hour = start_hour.toString();

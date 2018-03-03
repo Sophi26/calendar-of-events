@@ -202,70 +202,74 @@ function main() {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToScreen__ = __webpack_require__(13);
-;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToScreen__ = __webpack_require__(12);
 
 function main(arr_emitter, eventName) {
-    $.ajax({
-        url: "/api/events",
-        type: "GET",
-        contentType: "application/json",
-        success: (events) => {
-            events.sort((ev1, ev2) => {
-                return Date.parse(ev1.startData) - Date.parse(ev2.startData);
-            });
-            const cur_time = new Date();
-            events.forEach((event) => {
-                const start_time = new Date(event.startData);
-                const end_time = new Date(event.endData);
-                if ((cur_time.getDate() == start_time.getDate() && cur_time.getMonth() == start_time.getMonth() && cur_time.getFullYear() == start_time.getFullYear()) ||
-                    (cur_time.getDate() == end_time.getDate() && cur_time.getMonth() == end_time.getMonth() && cur_time.getFullYear() == end_time.getFullYear())) {
-                    const cur_hour = cur_time.getHours();
-                    const cur_min = cur_time.getMinutes();
-                    const start_hour = start_time.getHours();
-                    const start_min = start_time.getMinutes();
-                    const end_hour = end_time.getHours();
-                    const end_min = end_time.getMinutes();
-                    if (cur_hour <= 12 && (start_hour != 12 && end_hour <= 12)) {
-                        if ((start_hour < cur_hour || start_hour > cur_hour) && end_hour == cur_hour) {
-                            if (end_min >= cur_min) {
-                                Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                            }
-                        }
-                        if (start_hour == cur_hour && end_hour == cur_hour) {
-                            if (end_min >= cur_min) {
-                                Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                            }
-                        }
-                        if (start_hour == cur_hour && end_hour > cur_hour) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
-                        if ((start_hour > cur_hour || start_hour < cur_hour) && end_hour > cur_hour) {
+    fetch("/api/events", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then((response) => {
+        return response.json();
+    })
+        .then((events) => {
+        events.sort((ev1, ev2) => {
+            return Date.parse(ev1.startData) - Date.parse(ev2.startData);
+        });
+        const cur_time = new Date();
+        events.forEach((event) => {
+            const start_time = new Date(event.startData);
+            const end_time = new Date(event.endData);
+            if ((cur_time.getDate() == start_time.getDate() && cur_time.getMonth() == start_time.getMonth() && cur_time.getFullYear() == start_time.getFullYear()) ||
+                (cur_time.getDate() == end_time.getDate() && cur_time.getMonth() == end_time.getMonth() && cur_time.getFullYear() == end_time.getFullYear())) {
+                const cur_hour = cur_time.getHours();
+                const cur_min = cur_time.getMinutes();
+                const start_hour = start_time.getHours();
+                const start_min = start_time.getMinutes();
+                const end_hour = end_time.getHours();
+                const end_min = end_time.getMinutes();
+                if (cur_hour <= 12 && (start_hour != 12 && end_hour <= 12)) {
+                    if ((start_hour < cur_hour || start_hour > cur_hour) && end_hour == cur_hour) {
+                        if (end_min >= cur_min) {
                             Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                         }
                     }
-                    if (cur_hour >= 12 && (start_hour >= 12 || end_hour >= 12 || end_hour == 0)) {
-                        if (start_hour < cur_hour && end_hour == cur_hour) {
-                            if (end_min >= cur_min) {
-                                Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                            }
-                        }
-                        if (start_hour == cur_hour && end_hour == cur_hour) {
-                            if (end_min >= cur_min) {
-                                Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                            }
-                        }
-                        if (start_hour == cur_hour && (end_hour > cur_hour || end_hour == 0)) {
+                    if (start_hour == cur_hour && end_hour == cur_hour) {
+                        if (end_min >= cur_min) {
                             Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                         }
-                        if ((start_hour > cur_hour || start_hour < cur_hour) && (end_hour > cur_hour || end_hour == 0)) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
+                    }
+                    if (start_hour == cur_hour && end_hour > cur_hour) {
+                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                    }
+                    if ((start_hour > cur_hour || start_hour < cur_hour) && end_hour > cur_hour) {
+                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                     }
                 }
-            });
-        }
-    });
+                if (cur_hour >= 12 && (start_hour >= 12 || end_hour >= 12 || end_hour == 0)) {
+                    if (start_hour < cur_hour && end_hour == cur_hour) {
+                        if (end_min >= cur_min) {
+                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                        }
+                    }
+                    if (start_hour == cur_hour && end_hour == cur_hour) {
+                        if (end_min >= cur_min) {
+                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                        }
+                    }
+                    if (start_hour == cur_hour && (end_hour > cur_hour || end_hour == 0)) {
+                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                    }
+                    if ((start_hour > cur_hour || start_hour < cur_hour) && (end_hour > cur_hour || end_hour == 0)) {
+                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                    }
+                }
+            }
+        });
+    })
+        .catch();
 }
 
 
@@ -310,42 +314,107 @@ function main(arr_emitter) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToList__ = __webpack_require__(12);
-;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToList__ = __webpack_require__(11);
 
 function main(new_date) {
-    $.ajax({
-        url: "/api/events",
-        type: "GET",
-        contentType: "application/json",
-        success: (events) => {
-            events.sort((ev1, ev2) => {
-                return Date.parse(ev1.startData) - Date.parse(ev2.startData);
-            });
-            events.forEach((event) => {
-                const start_time = new Date(event.startData);
-                const end_time = new Date(event.endData);
-                if ((new_date.getDate() == start_time.getDate() && new_date.getMonth() == start_time.getMonth() && new_date.getFullYear() == start_time.getFullYear()) ||
-                    (new_date.getDate() == end_time.getDate() && new_date.getMonth() == end_time.getMonth() && new_date.getFullYear() == end_time.getFullYear())) {
-                    const start_hour = start_time.getHours();
-                    const start_min = start_time.getMinutes();
-                    const end_hour = end_time.getHours();
-                    const end_min = end_time.getMinutes();
-                    const list = document.getElementById('cur-events');
-                    if (!list)
-                        return;
-                    const li = Object(__WEBPACK_IMPORTED_MODULE_0__addEventToList__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min);
-                    list.appendChild(li);
-                }
-            });
+    fetch("/api/events", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
         }
-    });
+    })
+        .then((response) => {
+        return response.json();
+    })
+        .then((events) => {
+        events.sort((ev1, ev2) => {
+            return Date.parse(ev1.startData) - Date.parse(ev2.startData);
+        });
+        events.forEach((event) => {
+            const start_time = new Date(event.startData);
+            const end_time = new Date(event.endData);
+            if ((new_date.getDate() == start_time.getDate() && new_date.getMonth() == start_time.getMonth() && new_date.getFullYear() == start_time.getFullYear()) ||
+                (new_date.getDate() == end_time.getDate() && new_date.getMonth() == end_time.getMonth() && new_date.getFullYear() == end_time.getFullYear())) {
+                const start_hour = start_time.getHours();
+                const start_min = start_time.getMinutes();
+                const end_hour = end_time.getHours();
+                const end_min = end_time.getMinutes();
+                const list = document.getElementById('cur-events');
+                if (!list)
+                    return;
+                const li = Object(__WEBPACK_IMPORTED_MODULE_0__addEventToList__["a" /* default */])(event.name, start_hour, start_min, end_hour, end_min);
+                list.appendChild(li);
+            }
+        });
+    })
+        .catch();
 }
 
 
 
 /***/ }),
 /* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__ = __webpack_require__(9);
+;
+
+function main(degrees, r, adjust, x) {
+    var x = x || r, adj = adjust || 1;
+    return x + r * adj * Math.cos(Object(__WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__["a" /* default */])(degrees));
+}
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__ = __webpack_require__(9);
+;
+
+function main(degrees, r, adjust, y) {
+    var y = y || r, adj = adjust || 1;
+    return y + r * adj * Math.sin(Object(__WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__["a" /* default */])(degrees));
+}
+
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+;
+function main(table_days) {
+    while (table_days.firstChild) {
+        table_days.removeChild(table_days.firstChild);
+    }
+}
+
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+;
+function main(degrees) {
+    var adjust = Math.PI / 2;
+    return (degrees * Math.PI / 180) - adjust;
+}
+
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -403,7 +472,133 @@ function main(data) {
 
 
 /***/ }),
-/* 7 */
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+function main(name, start_hour, start_min, end_hour, end_min) {
+    let str_start_hour = start_hour.toString();
+    let str_start_min = start_min.toString();
+    let str_end_hour = end_hour.toString();
+    let str_end_min = end_min.toString();
+    if (start_hour < 10)
+        str_start_hour = '0' + str_start_hour;
+    if (start_min < 10)
+        str_start_min = '0' + str_start_min;
+    if (end_hour < 10)
+        str_end_hour = '0' + str_end_hour;
+    if (end_min < 10)
+        str_end_min = '0' + str_end_min;
+    let li = document.createElement("li");
+    li.setAttribute('class', 'newEvent');
+    let flexContainer = document.createElement("div");
+    flexContainer.setAttribute('class', 'event-flex-container');
+    let markFlexBlock = document.createElement("div");
+    markFlexBlock.setAttribute('class', 'mark-flex-block');
+    let markText = document.createElement("p");
+    markText.appendChild(document.createTextNode(name[0]));
+    markFlexBlock.appendChild(markText);
+    flexContainer.appendChild(markFlexBlock);
+    let textFlexBlock = document.createElement("div");
+    textFlexBlock.setAttribute('class', 'text-flex-block');
+    let ul = document.createElement("ul");
+    ul.setAttribute('class', 'info');
+    let liName = document.createElement("li");
+    liName.setAttribute('class', 'eventInfo');
+    let textName = document.createElement("p");
+    textName.setAttribute('class', 'nameEvent');
+    textName.appendChild(document.createTextNode(name));
+    liName.appendChild(textName);
+    ul.appendChild(liName);
+    let liTime = document.createElement("li");
+    liTime.setAttribute('class', 'eventInfo');
+    let textTime = document.createElement("p");
+    textTime.setAttribute('class', 'timeEvent');
+    textTime.appendChild(document.createTextNode(str_start_hour + ':' + str_start_min + ' - ' + str_end_hour + ':' + str_end_min));
+    liTime.appendChild(textTime);
+    ul.appendChild(liTime);
+    textFlexBlock.appendChild(ul);
+    flexContainer.appendChild(textFlexBlock);
+    li.appendChild(flexContainer);
+    return li;
+}
+
+
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToList__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addListenerToEvent__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setColorSector__ = __webpack_require__(13);
+;
+
+
+
+function main(name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName) {
+    const list = document.getElementById('cur-events');
+    if (!list)
+        return;
+    const li = Object(__WEBPACK_IMPORTED_MODULE_0__addEventToList__["a" /* default */])(name, start_hour, start_min, end_hour, end_min);
+    list.appendChild(li);
+    Object(__WEBPACK_IMPORTED_MODULE_2__setColorSector__["a" /* default */])(start_hour, start_min, end_hour, end_min, 'rgba(124, 26, 145, .8)', name);
+    Object(__WEBPACK_IMPORTED_MODULE_1__addListenerToEvent__["a" /* default */])(li, arr_emitter, eventName, start_hour, start_min, end_hour, end_min);
+}
+
+
+
+/***/ }),
+/* 13 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setNameEventInSector__ = __webpack_require__(31);
+;
+
+function main(start_hour, start_min, end_hour, end_min, color, name) {
+    if (start_hour >= 12)
+        start_hour -= 12;
+    if (end_hour >= 12)
+        end_hour -= 12;
+    const n_start_sec = start_hour * 4 + start_min * 4 / 60;
+    const n_end_sec = (end_hour * 4 - 1) + end_min * 4 / 60;
+    if (n_end_sec < n_start_sec) {
+        for (let i = n_start_sec; i <= 47; i++) {
+            const sec = document.getElementById('sector' + i);
+            if (!sec)
+                return;
+            sec.style.strokeOpacity = '.2';
+            sec.style.stroke = color;
+        }
+        for (let i = 0; i <= n_end_sec; i++) {
+            const sec = document.getElementById('sector' + i);
+            if (!sec)
+                return;
+            sec.style.strokeOpacity = '.2';
+            sec.style.stroke = color;
+        }
+    }
+    else {
+        for (let i = n_start_sec; i <= n_end_sec; i++) {
+            const sec = document.getElementById('sector' + i);
+            if (!sec)
+                return;
+            sec.style.strokeOpacity = '.2';
+            sec.style.stroke = color;
+        }
+    }
+    Object(__WEBPACK_IMPORTED_MODULE_0__setNameEventInSector__["a" /* default */])(n_start_sec, n_end_sec, name);
+}
+
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -458,203 +653,15 @@ function main(data) {
 
 
 /***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__ = __webpack_require__(11);
-;
-
-function main(degrees, r, adjust, x) {
-    var x = x || r, adj = adjust || 1;
-    return x + r * adj * Math.cos(Object(__WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__["a" /* default */])(degrees));
-}
-
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__ = __webpack_require__(11);
-;
-
-function main(degrees, r, adjust, y) {
-    var y = y || r, adj = adjust || 1;
-    return y + r * adj * Math.sin(Object(__WEBPACK_IMPORTED_MODULE_0__degrees_to_radian__["a" /* default */])(degrees));
-}
-
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-;
-function main(table_days) {
-    while (table_days.firstChild) {
-        table_days.removeChild(table_days.firstChild);
-    }
-}
-
-
-
-/***/ }),
-/* 11 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-;
-function main(degrees) {
-    var adjust = Math.PI / 2;
-    return (degrees * Math.PI / 180) - adjust;
-}
-
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-;
-function main(name, start_hour, start_min, end_hour, end_min) {
-    let str_start_hour = start_hour.toString();
-    let str_start_min = start_min.toString();
-    let str_end_hour = end_hour.toString();
-    let str_end_min = end_min.toString();
-    if (start_hour < 10)
-        str_start_hour = '0' + str_start_hour;
-    if (start_min < 10)
-        str_start_min = '0' + str_start_min;
-    if (end_hour < 10)
-        str_end_hour = '0' + str_end_hour;
-    if (end_min < 10)
-        str_end_min = '0' + str_end_min;
-    let li = document.createElement("li");
-    li.setAttribute('class', 'newEvent');
-    let flexContainer = document.createElement("div");
-    flexContainer.setAttribute('class', 'event-flex-container');
-    let markFlexBlock = document.createElement("div");
-    markFlexBlock.setAttribute('class', 'mark-flex-block');
-    let markText = document.createElement("p");
-    markText.appendChild(document.createTextNode(name[0]));
-    markFlexBlock.appendChild(markText);
-    flexContainer.appendChild(markFlexBlock);
-    let textFlexBlock = document.createElement("div");
-    textFlexBlock.setAttribute('class', 'text-flex-block');
-    let ul = document.createElement("ul");
-    ul.setAttribute('class', 'info');
-    let liName = document.createElement("li");
-    liName.setAttribute('class', 'eventInfo');
-    let textName = document.createElement("p");
-    textName.setAttribute('class', 'nameEvent');
-    textName.appendChild(document.createTextNode(name));
-    liName.appendChild(textName);
-    ul.appendChild(liName);
-    let liTime = document.createElement("li");
-    liTime.setAttribute('class', 'eventInfo');
-    let textTime = document.createElement("p");
-    textTime.setAttribute('class', 'timeEvent');
-    textTime.appendChild(document.createTextNode(str_start_hour + ':' + str_start_min + ' - ' + str_end_hour + ':' + str_end_min));
-    liTime.appendChild(textTime);
-    ul.appendChild(liTime);
-    textFlexBlock.appendChild(ul);
-    flexContainer.appendChild(textFlexBlock);
-    li.appendChild(flexContainer);
-    return li;
-}
-
-
-
-/***/ }),
-/* 13 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToList__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addListenerToEvent__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setColorSector__ = __webpack_require__(14);
-;
-
-
-
-function main(name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName) {
-    const list = document.getElementById('cur-events');
-    if (!list)
-        return;
-    const li = Object(__WEBPACK_IMPORTED_MODULE_0__addEventToList__["a" /* default */])(name, start_hour, start_min, end_hour, end_min);
-    list.appendChild(li);
-    Object(__WEBPACK_IMPORTED_MODULE_2__setColorSector__["a" /* default */])(start_hour, start_min, end_hour, end_min, 'rgba(124, 26, 145, .8)', name);
-    Object(__WEBPACK_IMPORTED_MODULE_1__addListenerToEvent__["a" /* default */])(li, arr_emitter, eventName, start_hour, start_min, end_hour, end_min);
-}
-
-
-
-/***/ }),
-/* 14 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setNameEventInSector__ = __webpack_require__(31);
-;
-
-function main(start_hour, start_min, end_hour, end_min, color, name) {
-    if (start_hour >= 12)
-        start_hour -= 12;
-    if (end_hour >= 12)
-        end_hour -= 12;
-    const n_start_sec = start_hour * 4 + start_min * 4 / 60;
-    const n_end_sec = (end_hour * 4 - 1) + end_min * 4 / 60;
-    if (n_end_sec < n_start_sec) {
-        for (let i = n_start_sec; i <= 47; i++) {
-            const sec = document.getElementById('sector' + i);
-            if (!sec)
-                return;
-            sec.style.strokeOpacity = '.2';
-            sec.style.stroke = color;
-        }
-        for (let i = 0; i <= n_end_sec; i++) {
-            const sec = document.getElementById('sector' + i);
-            if (!sec)
-                return;
-            sec.style.strokeOpacity = '.2';
-            sec.style.stroke = color;
-        }
-    }
-    else {
-        for (let i = n_start_sec; i <= n_end_sec; i++) {
-            const sec = document.getElementById('sector' + i);
-            if (!sec)
-                return;
-            sec.style.strokeOpacity = '.2';
-            sec.style.stroke = color;
-        }
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_0__setNameEventInSector__["a" /* default */])(n_start_sec, n_end_sec, name);
-}
-
-
-
-/***/ }),
 /* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawWeekdays__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawMonthNavigation__ = __webpack_require__(45);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drawEmptyCell__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawCellWithDate__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawWeekdays__ = __webpack_require__(38);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__drawMonthNavigation__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__drawEmptyCell__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__drawCellWithDate__ = __webpack_require__(41);
 ;
 
 
@@ -772,11 +779,11 @@ Object(__WEBPACK_IMPORTED_MODULE_0__calendar_index__["a" /* default */])();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setScreenDate__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__initNextPrevButtons__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initChooseWeekdayButtons__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initRefreshButton__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__initCalendarButton__ = __webpack_require__(43);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__initFormButton__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initRefreshButton__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__initCalendarButton__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__initFormButton__ = __webpack_require__(44);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__setControlEvent__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__setControlEvent__ = __webpack_require__(47);
 
 
 
@@ -845,8 +852,8 @@ function main() {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(7);
 ;
 
 
@@ -897,8 +904,8 @@ function main() {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(7);
 ;
 
 
@@ -931,8 +938,8 @@ function main(hand, value, size, degrees) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__get_point_X_value__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__get_point_Y_value__ = __webpack_require__(7);
 ;
 
 
@@ -1040,7 +1047,7 @@ function main(arr_emitter, eventName) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getNextDay__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getNextDay__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__clearAll__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initOtherDayEvents__ = __webpack_require__(5);
@@ -1414,7 +1421,7 @@ function isUndefined(arg) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setColorSector__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setColorSector__ = __webpack_require__(13);
 ;
 
 function main(li, arr_emitter, emitter, start_hour, start_min, end_hour, end_min) {
@@ -1472,7 +1479,7 @@ function main(n_start_sec, n_end_sec, name) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
@@ -1511,63 +1518,51 @@ function main(arr_emitter, eventName) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setSunday__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setMonday__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setTuesday__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setWednesday__ = __webpack_require__(37);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__setThursday__ = __webpack_require__(38);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__setFriday__ = __webpack_require__(39);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setSutarday__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setWeekday__ = __webpack_require__(34);
 ;
-
-
-
-
-
-
 
 function main(arr_emitter, eventName) {
     const sunday_click = document.getElementById('week-flex-block0');
     if (!sunday_click)
         return;
     sunday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_0__setSunday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(0, arr_emitter, eventName);
     });
     const monday_click = document.getElementById('week-flex-block1');
     if (!monday_click)
         return;
     monday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_1__setMonday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(1, arr_emitter, eventName);
     });
     const tuesday_click = document.getElementById('week-flex-block2');
     if (!tuesday_click)
         return;
     tuesday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_2__setTuesday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(2, arr_emitter, eventName);
     });
     const wednesday_click = document.getElementById('week-flex-block3');
     if (!wednesday_click)
         return;
     wednesday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_3__setWednesday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(3, arr_emitter, eventName);
     });
     const thursday_click = document.getElementById('week-flex-block4');
     if (!thursday_click)
         return;
     thursday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_4__setThursday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(4, arr_emitter, eventName);
     });
     const friday_click = document.getElementById('week-flex-block5');
     if (!friday_click)
         return;
     friday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_5__setFriday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(5, arr_emitter, eventName);
     });
     const sutarday_click = document.getElementById('week-flex-block6');
     if (!sutarday_click)
         return;
     sutarday_click.addEventListener('click', () => {
-        Object(__WEBPACK_IMPORTED_MODULE_6__setSutarday__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_0__setWeekday__["a" /* default */])(6, arr_emitter, eventName);
     });
 }
 
@@ -1580,13 +1575,13 @@ function main(arr_emitter, eventName) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getNextDay__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrevDay__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getNextDay__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__clearAll__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__initEvents__ = __webpack_require__(3);
-;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
 
 
 
@@ -1594,24 +1589,37 @@ function main(arr_emitter, eventName) {
 
 
 
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_1__setColorWeekday__["a" /* default */])(0, 'rgba(39, 216, 156, .6)');
+
+function main(select_weekday, arr_emitter, eventName) {
+    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(select_weekday, 'rgba(39, 216, 156, .6)');
     const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_1__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    const inc = 7 - screen_weekday;
+    let screen_weekday = screen_date.getDay();
+    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
+    if (select_weekday == 0)
+        select_weekday = 7;
+    if (screen_weekday == 0)
+        screen_weekday = 7;
     let new_date = screen_date;
-    for (let i = 0; i < inc; i++) {
-        new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getNextDay__["a" /* default */])(new_date);
+    if (select_weekday < screen_weekday) {
+        const inc = screen_weekday - select_weekday;
+        for (let i = 0; i < inc; i++) {
+            new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getPrevDay__["a" /* default */])(new_date);
+        }
+    }
+    else if (select_weekday > screen_weekday) {
+        const inc = select_weekday - screen_weekday;
+        for (let i = 0; i < inc; i++) {
+            new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getNextDay__["a" /* default */])(new_date);
+        }
     }
     Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_4__clearAll__["a" /* default */])(arr_emitter);
+    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
     const cur_date = new Date();
     if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_6__initEvents__["a" /* default */])(arr_emitter, eventName);
+        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
     }
     else {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initOtherDayEvents__["a" /* default */])(new_date);
+        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
     }
 }
 
@@ -1623,345 +1631,7 @@ function main(arr_emitter, eventName) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_5__setColorWeekday__["a" /* default */])(1, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_5__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let inc;
-    if (screen_date.getDay() == 0) {
-        inc = 6;
-    }
-    else {
-        inc = screen_date.getDay() - 1;
-    }
-    let new_date = screen_date;
-    for (let i = 0; i < inc; i++) {
-        new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getPrevDay__["a" /* default */])(new_date);
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_2__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_6__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_3__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 36 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getNextDay__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(2, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let new_date = screen_date;
-    if (screen_date.getDay() == 1) {
-        new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getNextDay__["a" /* default */])(new_date);
-    }
-    else {
-        let inc;
-        if (screen_date.getDay() == 0) {
-            inc = 5;
-        }
-        else {
-            inc = screen_date.getDay() - 2;
-        }
-        for (let i = 0; i < inc; i++) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getPrevDay__["a" /* default */])(new_date);
-        }
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 37 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getNextDay__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(3, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let inc;
-    let new_date = screen_date;
-    if (screen_date.getDay() < 3 && screen_date.getDay() != 0) {
-        inc = 3 - screen_date.getDay();
-        for (let i = 0; i < inc; ++i) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getNextDay__["a" /* default */])(new_date);
-        }
-    }
-    else {
-        if (screen_date.getDay() == 0) {
-            inc = 4;
-        }
-        else {
-            inc = screen_date.getDay() - 3;
-        }
-        for (let i = 0; i < inc; i++) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getPrevDay__["a" /* default */])(new_date);
-        }
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 38 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getNextDay__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(4, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let inc;
-    let new_date = screen_date;
-    if (screen_date.getDay() < 4 && screen_date.getDay() != 0) {
-        inc = 4 - screen_date.getDay();
-        for (let i = 0; i < inc; ++i) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getNextDay__["a" /* default */])(new_date);
-        }
-    }
-    else {
-        if (screen_date.getDay() == 0) {
-            inc = 3;
-        }
-        else {
-            inc = screen_date.getDay() - 4;
-        }
-        for (let i = 0; i < inc; i++) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getPrevDay__["a" /* default */])(new_date);
-        }
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 39 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getNextDay__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(5, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let inc;
-    let new_date = screen_date;
-    if (screen_date.getDay() < 5 && screen_date.getDay() != 0) {
-        inc = 5 - screen_date.getDay();
-        for (let i = 0; i < inc; ++i) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getNextDay__["a" /* default */])(new_date);
-        }
-    }
-    else {
-        if (screen_date.getDay() == 0) {
-            inc = 2;
-        }
-        else {
-            inc = screen_date.getDay() - 5;
-        }
-        for (let i = 0; i < inc; i++) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getPrevDay__["a" /* default */])(new_date);
-        }
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getScreenDate__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getNextDay__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getPrevDay__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__setScreenDate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
-;
-
-
-
-
-
-
-
-
-function main(arr_emitter, eventName) {
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(6, 'rgba(39, 216, 156, .6)');
-    const screen_date = Object(__WEBPACK_IMPORTED_MODULE_0__getScreenDate__["a" /* default */])();
-    const screen_weekday = screen_date.getDay();
-    Object(__WEBPACK_IMPORTED_MODULE_6__setColorWeekday__["a" /* default */])(screen_weekday, 'snow');
-    let new_date = screen_date;
-    if (screen_date.getDay() != 0) {
-        let inc = 6 - screen_date.getDay();
-        for (let i = 0; i < inc; ++i) {
-            new_date = Object(__WEBPACK_IMPORTED_MODULE_1__getNextDay__["a" /* default */])(new_date);
-        }
-    }
-    else {
-        new_date = Object(__WEBPACK_IMPORTED_MODULE_2__getPrevDay__["a" /* default */])(new_date);
-    }
-    Object(__WEBPACK_IMPORTED_MODULE_3__setScreenDate__["a" /* default */])(new_date);
-    Object(__WEBPACK_IMPORTED_MODULE_7__clearAll__["a" /* default */])(arr_emitter);
-    const cur_date = new Date();
-    if (new_date.getDate() == cur_date.getDate() && new_date.getMonth() == cur_date.getMonth() && new_date.getFullYear() == cur_date.getFullYear()) {
-        Object(__WEBPACK_IMPORTED_MODULE_5__initEvents__["a" /* default */])(arr_emitter, eventName);
-    }
-    else {
-        Object(__WEBPACK_IMPORTED_MODULE_4__initOtherDayEvents__["a" /* default */])(new_date);
-    }
-}
-
-
-
-/***/ }),
-/* 41 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__refreshDate__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__refreshDate__ = __webpack_require__(36);
 ;
 
 function main(arr_emitter, eventName) {
@@ -1976,7 +1646,7 @@ function main(arr_emitter, eventName) {
 
 
 /***/ }),
-/* 42 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2007,14 +1677,14 @@ function main(arr_emitter, eventName) {
 
 
 /***/ }),
-/* 43 */
+/* 37 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawCalendar__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__showCalendar__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__clearCalendar__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__clearCalendar__ = __webpack_require__(8);
 ;
 
 
@@ -2050,7 +1720,7 @@ function main(arr_emitter, eventName) {
 
 
 /***/ }),
-/* 44 */
+/* 38 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2087,13 +1757,13 @@ function main(table_days) {
 
 
 /***/ }),
-/* 45 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__drawCalendar__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clearCalendar__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clearCalendar__ = __webpack_require__(8);
 ;
 
 
@@ -2155,7 +1825,7 @@ function main(data, table_days, arr_emitter, eventName) {
 
 
 /***/ }),
-/* 46 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2171,13 +1841,13 @@ function main(tr) {
 
 
 /***/ }),
-/* 47 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setEventsInCell__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clickOnCell__ = __webpack_require__(49);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__setEventsInCell__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__clickOnCell__ = __webpack_require__(43);
 ;
 
 
@@ -2187,7 +1857,7 @@ function main(index, day, month, year, tr, table_days, arr_emitter, eventName) {
     if (cur_date.getDate() == day && cur_date.getMonth() == month && cur_date.getFullYear() == year) {
         class_name = 'selected';
     }
-    if (index % 7 == 6 || index % 7 == 5) {
+    else if (index % 7 == 6 || index % 7 == 5) {
         class_name = 'holiday';
     }
     const td = document.createElement("td");
@@ -2206,56 +1876,60 @@ function main(index, day, month, year, tr, table_days, arr_emitter, eventName) {
 
 
 /***/ }),
-/* 48 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-;
 function main(td, d, month, year) {
-    $.ajax({
-        url: "/api/events",
-        type: "GET",
-        contentType: "application/json",
-        success: (events) => {
-            events.sort((ev1, ev2) => {
-                return Date.parse(ev1.startData) - Date.parse(ev2.startData);
-            });
-            events.forEach((event) => {
-                const start_time = new Date(event.startData);
-                const end_time = new Date(event.endData);
-                if ((d == start_time.getDate() && month == start_time.getMonth() && year == start_time.getFullYear()) ||
-                    (d == end_time.getDate() && month == end_time.getMonth() && year == end_time.getFullYear())) {
-                    const start_hour = start_time.getHours();
-                    let str_start_hour = start_hour.toString();
-                    if (start_hour < 10)
-                        str_start_hour = '0' + str_start_hour;
-                    const start_min = start_time.getMinutes();
-                    let str_start_min = start_min.toString();
-                    if (start_min < 10)
-                        str_start_min = '0' + str_start_min;
-                    const end_hour = end_time.getHours();
-                    let str_end_hour = end_hour.toString();
-                    if (end_hour < 10)
-                        str_end_hour = '0' + str_end_hour;
-                    const end_min = end_time.getMinutes();
-                    let str_end_min = end_min.toString();
-                    if (end_min < 10)
-                        str_end_min = '0' + str_end_min;
-                    const p = document.createElement("p");
-                    p.setAttribute('class', 'table-event-text');
-                    p.appendChild(document.createTextNode(str_start_hour + ':' + str_start_min + ' - ' + str_end_hour + ':' + str_end_min + ' ' + event.name));
-                    td.appendChild(p);
-                }
-            });
+    fetch("/api/events", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
         }
-    });
+    })
+        .then((response) => {
+        return response.json();
+    })
+        .then((events) => {
+        events.sort((ev1, ev2) => {
+            return Date.parse(ev1.startData) - Date.parse(ev2.startData);
+        });
+        events.forEach((event) => {
+            const start_time = new Date(event.startData);
+            const end_time = new Date(event.endData);
+            if ((d == start_time.getDate() && month == start_time.getMonth() && year == start_time.getFullYear()) ||
+                (d == end_time.getDate() && month == end_time.getMonth() && year == end_time.getFullYear())) {
+                const start_hour = start_time.getHours();
+                let str_start_hour = start_hour.toString();
+                if (start_hour < 10)
+                    str_start_hour = '0' + str_start_hour;
+                const start_min = start_time.getMinutes();
+                let str_start_min = start_min.toString();
+                if (start_min < 10)
+                    str_start_min = '0' + str_start_min;
+                const end_hour = end_time.getHours();
+                let str_end_hour = end_hour.toString();
+                if (end_hour < 10)
+                    str_end_hour = '0' + str_end_hour;
+                const end_min = end_time.getMinutes();
+                let str_end_min = end_min.toString();
+                if (end_min < 10)
+                    str_end_min = '0' + str_end_min;
+                const p = document.createElement("p");
+                p.setAttribute('class', 'table-event-text');
+                p.appendChild(document.createTextNode(str_start_hour + ':' + str_start_min + ' - ' + str_end_hour + ':' + str_end_min + ' ' + event.name));
+                td.appendChild(p);
+            }
+        });
+    })
+        .catch();
 }
 
 
 
 /***/ }),
-/* 49 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2264,7 +1938,7 @@ function main(td, d, month, year) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__setScreenDate__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__initOtherDayEvents__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__initEvents__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__clearCalendar__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__clearCalendar__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__showCalendar__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__setColorWeekday__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__clearAll__ = __webpack_require__(4);
@@ -2299,13 +1973,13 @@ function main(select_date, table_days, arr_emitter, eventName) {
 
 
 /***/ }),
-/* 50 */
+/* 44 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__showForm__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sendForm__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__sendForm__ = __webpack_require__(45);
 ;
 
 
@@ -2340,12 +2014,12 @@ function main(arr_emitter, eventName) {
 
 
 /***/ }),
-/* 51 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createEvent__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__createEvent__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__showForm__ = __webpack_require__(17);
 ;
 
@@ -2363,88 +2037,91 @@ function main(form, arr_emitter, eventName) {
 
 
 /***/ }),
-/* 52 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return main; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToScreen__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__addEventToScreen__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getScreenDate__ = __webpack_require__(2);
-;
 
 
 function main(event_name, event_start, event_end, arr_emitter, eventName) {
-    $.ajax({
-        url: "api/events",
-        contentType: "application/json",
+    fetch("/api/events", {
         method: "POST",
-        data: JSON.stringify({
+        body: JSON.stringify({
             name: event_name,
             startData: event_start,
             endData: event_end
         }),
-        dataType: "json",
-        success: (data) => {
-            const form = document.forms.namedItem('addevent');
-            if (!form)
-                return;
-            form.reset();
-            const cur_time = Object(__WEBPACK_IMPORTED_MODULE_1__getScreenDate__["a" /* default */])();
-            const start_time = new Date(data.startData);
-            const end_time = new Date(data.endData);
-            if ((cur_time.getDate() == start_time.getDate() && cur_time.getMonth() == start_time.getMonth() && cur_time.getFullYear() == start_time.getFullYear()) ||
-                (cur_time.getDate() == end_time.getDate() && cur_time.getMonth() == end_time.getMonth() && cur_time.getFullYear() == end_time.getFullYear())) {
-                const cur_hour = cur_time.getHours();
-                const cur_min = cur_time.getMinutes();
-                const start_hour = start_time.getHours();
-                const start_min = start_time.getMinutes();
-                const end_hour = end_time.getHours();
-                const end_min = end_time.getMinutes();
-                if (cur_hour <= 12 && (start_hour != 12 && end_hour <= 12)) {
-                    if ((start_hour < cur_hour || start_hour > cur_hour) && end_hour == cur_hour) {
-                        if (end_min >= cur_min) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
-                    }
-                    if (start_hour == cur_hour && end_hour == cur_hour) {
-                        if (end_min >= cur_min) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
-                    }
-                    if (start_hour == cur_hour && end_hour > cur_hour) {
-                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                    }
-                    if ((start_hour > cur_hour || start_hour < cur_hour) && end_hour > cur_hour) {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then((response) => {
+        return response.json();
+    })
+        .then((data) => {
+        const form = document.forms.namedItem('addevent');
+        if (!form)
+            return;
+        form.reset();
+        const cur_time = Object(__WEBPACK_IMPORTED_MODULE_1__getScreenDate__["a" /* default */])();
+        const start_time = new Date(data.startData);
+        const end_time = new Date(data.endData);
+        if ((cur_time.getDate() == start_time.getDate() && cur_time.getMonth() == start_time.getMonth() && cur_time.getFullYear() == start_time.getFullYear()) ||
+            (cur_time.getDate() == end_time.getDate() && cur_time.getMonth() == end_time.getMonth() && cur_time.getFullYear() == end_time.getFullYear())) {
+            const cur_hour = cur_time.getHours();
+            const cur_min = cur_time.getMinutes();
+            const start_hour = start_time.getHours();
+            const start_min = start_time.getMinutes();
+            const end_hour = end_time.getHours();
+            const end_min = end_time.getMinutes();
+            if (cur_hour <= 12 && (start_hour != 12 && end_hour <= 12)) {
+                if ((start_hour < cur_hour || start_hour > cur_hour) && end_hour == cur_hour) {
+                    if (end_min >= cur_min) {
                         Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                     }
                 }
-                if (cur_hour >= 12 && (start_hour >= 12 || end_hour >= 12 || end_hour == 0)) {
-                    if (start_hour < cur_hour && end_hour == cur_hour) {
-                        if (end_min >= cur_min) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
-                    }
-                    if (start_hour == cur_hour && end_hour == cur_hour) {
-                        if (end_min >= cur_min) {
-                            Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
-                        }
-                    }
-                    if (start_hour == cur_hour && (end_hour > cur_hour || end_hour == 0)) {
+                if (start_hour == cur_hour && end_hour == cur_hour) {
+                    if (end_min >= cur_min) {
                         Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                     }
-                    if ((start_hour > cur_hour || start_hour < cur_hour) && (end_hour > cur_hour || end_hour == 0)) {
+                }
+                if (start_hour == cur_hour && end_hour > cur_hour) {
+                    Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                }
+                if ((start_hour > cur_hour || start_hour < cur_hour) && end_hour > cur_hour) {
+                    Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                }
+            }
+            if (cur_hour >= 12 && (start_hour >= 12 || end_hour >= 12 || end_hour == 0)) {
+                if (start_hour < cur_hour && end_hour == cur_hour) {
+                    if (end_min >= cur_min) {
                         Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                     }
+                }
+                if (start_hour == cur_hour && end_hour == cur_hour) {
+                    if (end_min >= cur_min) {
+                        Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                    }
+                }
+                if (start_hour == cur_hour && (end_hour > cur_hour || end_hour == 0)) {
+                    Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
+                }
+                if ((start_hour > cur_hour || start_hour < cur_hour) && (end_hour > cur_hour || end_hour == 0)) {
+                    Object(__WEBPACK_IMPORTED_MODULE_0__addEventToScreen__["a" /* default */])(data.name, start_hour, start_min, end_hour, end_min, arr_emitter, eventName);
                 }
             }
         }
-    });
+    })
+        .catch();
 }
 
 
 
 /***/ }),
-/* 53 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

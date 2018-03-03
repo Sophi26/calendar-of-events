@@ -1,7 +1,6 @@
 /**
  * Отрисовка ячейки с датой
  */
-;
 
 import { EventEmitter } from 'events';
 
@@ -16,8 +15,7 @@ function main(index: number, day: number, month: number, year: number, tr: HTMLT
 
     if (cur_date.getDate() == day && cur_date.getMonth() == month && cur_date.getFullYear() == year) {
         class_name = 'selected';
-    }
-    if (index % 7 == 6 || index % 7 == 5) {
+    } else if (index % 7 == 6 || index % 7 == 5) {
         class_name = 'holiday';
     }
 
